@@ -3,9 +3,16 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>✨师爷姚倦 · 在线摇签✨</title>
+    <title>✨师爷姚倦·在线摇签✨</title>
     <style>
+        /* ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; /* 所有元素都用border-box计算尺寸 */
+            -webkit-text-size-adjust: none; /* 禁止iOS自动放大字体 */
+        }
+
         @import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap');
         
         body {
@@ -13,7 +20,7 @@
             margin: 0;
             padding: 0;
             /* 底图 */                        
-background: url('https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEUgdxqFAN-753Iw_uVmJ9AcWabq9kk0AACuycAAo4OoFTMatrktpL8wzsE.jpg');
+            background: url('https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEUgdxqFAN-753Iw_uVmJ9AcWabq9kk0AACuycAAo4OoFTMatrktpL8wzsE.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -22,15 +29,14 @@ background: url('https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEUgdxqFAN-7
             text-align: center;
         }
         .container {
-       max-width: 90%; 
-       width: 650px; 
-       margin: 30px auto; 
-       padding: 25px 20px; 
-       background-color: rgba(45, 15, 15, 0.25);
-       border-radius: 15px;
-       box-shadow: 0 0 50px rgba(139, 0, 0, 0.6);
-       box-sizing: border-box; 
-       }
+            max-width: 90%; 
+            width: 650px; 
+            margin: 30px auto; 
+            padding: 25px 20px; 
+            background-color: rgba(45, 15, 15, 0.25);
+            border-radius: 15px;
+            box-shadow: 0 0 50px rgba(139, 0, 0, 0.6);
+        }
         h1 {
             font-size: 48px;
             margin-bottom: 25px;
@@ -43,16 +49,20 @@ background: url('https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEUgdxqFAN-7
             color: #FFD700;
         }
         input {
-            width: 80%;
+            display: block; /* 关键：变成块级元素，margin:auto才能正确居中 */
+            width: 100%;
+            max-width: 100%; /* 关键：永远不超过父容器宽度 */
             padding: 18px;
             font-size: 20px;
             font-family: 'Ma Shan Zheng', cursive;
-            margin: 25px 0;
+            margin: 25px auto;
             background-color: rgba(255, 255, 255, 0.08);
             border: 2px solid #8B0000;
             border-radius: 8px;
             color: #F7E7CE;
             outline: none;
+            -webkit-appearance: none; /* 关键：清除iOS Safari默认输入框样式 */
+            appearance: none;
         }
         input::placeholder {
             color: #FFD700;
@@ -74,10 +84,9 @@ background: url('https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEUgdxqFAN-7
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(139, 0, 0, 0.4);
         }
-        /* ====== */
         #result {
             margin-top: 45px;
-            font-size: 26px; /* 宋体 */
+            font-size: 26px;
             line-height: 1.9;
             padding: 35px;
             border: 2px solid #FFD700;
@@ -85,16 +94,45 @@ background: url('https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEUgdxqFAN-7
             min-height: 90px;
             background-color: rgba(255, 215, 0, 0.1);
             color: #FFD700;
-            /* 单独设置签文为宋体 */
             font-family: "SimSun", "Songti SC", "STSong", serif;
-            font-weight: normal; /* 宋体 */
+            font-weight: normal;
         }
-        /* ================================================= */
+
+        /* ========== 手机端适配 ========== */
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px auto;
+                padding: 20px 15px;
+            }
+            h1 {
+                font-size: 32px;
+                margin-bottom: 15px;
+            }
+            .subtitle {
+                font-size: 18px;
+                margin-bottom: 25px;
+            }
+            input {
+                padding: 14px;
+                font-size: 17px;
+                margin: 20px auto;
+            }
+            button {
+                padding: 14px 35px;
+                font-size: 20px;
+            }
+            #result {
+                margin-top: 30px;
+                font-size: 19px;
+                line-height: 1.7;
+                padding: 20px 15px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>✨ 师爷姚倦 · 在线摇签 ✨</h1>
+        <h1>✨师爷姚倦·在线摇签✨</h1>
         <p class="subtitle">江湖路远，吉凶难测，且听师爷一言，只要一百文</p>
         <input type="text" id="input" placeholder="心中所想，尽可书之，小宗主请~ 不想玩了就说再见哦~">
         <br>
@@ -170,7 +208,7 @@ background: url('https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEUgdxqFAN-7
             const input = document.getElementById('input').value;
             
             if (input === "再见") {
-                document.getElementById('result').innerHTML = "青山不改，绿水长流，小宗主，咱们下次再见～（一步三回头）（恋恋不舍）";
+                document.getElementById('result').innerHTML = "青山不改，绿水长流，小宗主咱们下次再见～（一步三回头）（恋恋不舍）";
                 return;
             }
 

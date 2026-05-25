@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨师爷姚倦 · 在线摇签✨</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap');
+        
+        body {
+            font-family: 'Ma Shan Zheng', cursive, sans-serif;
+            margin: 0;
+            padding: 0;
+            /* 底图 */                        
+background: url('https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEUgdxqFAN-753Iw_uVmJ9AcWabq9kk0AACuycAAo4OoFTMatrktpL8wzsE.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #f5e6c8;
+            text-align: center;
+        }
+        .container {
+            max-width: 650px;
+            margin: 80px auto;
+            padding: 45px;
+            background-color: rgba(45, 15, 15, 0.45);
+            border-radius: 15px;
+            box-shadow: 0 0 50px rgba(139, 0, 0, 0.6);
+        }
+        h1 {
+            font-size: 48px;
+            margin-bottom: 25px;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+        .subtitle {
+            font-size: 24px;
+            margin-bottom: 35px;
+            color: #FFD700;
+        }
+        input {
+            width: 80%;
+            padding: 18px;
+            font-size: 20px;
+            font-family: 'Ma Shan Zheng', cursive;
+            margin: 25px 0;
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 2px solid #8B0000;
+            border-radius: 8px;
+            color: #F7E7CE;
+            outline: none;
+        }
+        input::placeholder {
+            color: #FFD700;
+        }
+        button {
+            padding: 18px 45px;
+            font-size: 26px;
+            font-family: 'Ma Shan Zheng', cursive;
+            background-color: #8B0000;
+            color: #f5e6c8;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        button:hover {
+            background-color: #CD5C5C;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(139, 0, 0, 0.4);
+        }
+        /* ====== */
+        #result {
+            margin-top: 45px;
+            font-size: 26px; /* 宋体 */
+            line-height: 1.9;
+            padding: 35px;
+            border: 2px solid #FFD700;
+            border-radius: 10px;
+            min-height: 90px;
+            background-color: rgba(255, 215, 0, 0.1);
+            color: #FFD700;
+            /* 单独设置签文为宋体 */
+            font-family: "SimSun", "Songti SC", "STSong", serif;
+            font-weight: normal; /* 宋体 */
+        }
+        /* ================================================= */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✨ 师爷姚倦 · 在线摇签 ✨</h1>
+        <p class="subtitle">江湖路远，吉凶难测，且听师爷一言，只要一百文</p>
+        <input type="text" id="input" placeholder="心中所想，尽可书之，小宗主请~ 不想玩了就说再见哦~">
+        <br>
+        <button onclick="getSign()">摇签</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const signs = [
+            "自从天倾西北头，天下之水皆东流。",
+            "若言世事无颠倒，窃钩者诛窃国侯。",
+            "君不见昔年移柳灞陵秋，今朝摇落无人收。",
+            "无明渡下半冤肉，况我人间做孤囚。",
+            "面苍然，鬓皤然。满经诗书不值钱。",
+            "功名竹帛非我事，存亡贵贱付皇天。",
+            "礼崩乐坏，世事颠倒，明日谁是蟾宫客，谁是下九流，还不一定呢！",
+            "少侠，看仔细了！",
+            "少侠，你小宗主在此，师爷我就只管为您指明前路了！",
+            "今日，我姚倦也尝尝，胜天一着的滋味！",
+            "我曾高登金銮殿，转眼又被人弃如敝履，扔在街边。",
+            "小宗主，干这一行，你是有天赋的。",
+            "小宗主好呀，需要金牌向导吗？看我看我！",
+            "六鳌骨已霜，三山流安在？扶桑半摧折，白日沈光彩！",
+            "银台金阙如梦中，秦皇汉武空相待——",
+            "直饮到黄金白璧买歌笑，一醉累月轻王侯！",
+            "直饮到但使今朝能醉客，不知何处是他乡啊——",
+            "只为来时晚，花开不及春。",
+            "撕花瓣，有吗？",
+            "撕花瓣，没有吗？",
+            "多事鬓毛随节换，尽情灯火向人明。",
+            "这最后一颗棋子，我来。",
+            "小宗主来信，姚某人真是受宠若惊。",
+            "黑白难辨，万勿轻信。",
+            "棋局未尽，万望小心。",
+            "我怎么想的，就留给小宗主猜猜看吧。",
+            "小宗主，其实这世间的事，哪有什么真假错对。",
+            "绝境嘛……就靠小宗主你了。",
+            "小宗主，你身在江湖，清浊同下才是江湖。",
+            "小宗主，你我同为人间惆怅客，我猜你能明白的。",
+            "天机不可泄露",
+            "别担心，有师爷我在呢。",
+            "师爷我此番卜算，你往后行路再无险阻。",
+            "些许低谷，还困不住我家小宗主。",
+            "见小宗主蹙眉，姚某心里也不畅快",
+            "小宗主早上好中午好晚上好半夜好！",
+            "（硬气）惹上我就惹上我，我也不能怎么样！",
+            "小宗主，咱们天庭走着？",
+            "来，你我同饮此杯！",
+            "喜事，喜事啊——",
+            "还得是你啊少侠！",
+            "我以为宗主已经够莽了，没想到小宗主更莽得不行。",
+            "嘿，小宗主你这就说对了。",
+            "沙场多少英雄事，轻舟已过万重山！",
+            "尘世客，拨云见日。",
+            "远行身，化泥连春。",
+            "飘零者，随风落地。",
+            "久囚者，和空飞云。",
+            "新开刃，欢声偕行。",
+            "旧时歌，恩仇皆轻",
+            "分离聚合皆前定，盛衰兴亡岂无凭。",
+            "笑谈已了关中事，长天万里放眼明。",
+            "这位少侠，可愿雇我同行？",
+            "成与不成，都是名垂千古啊！",
+            "鞭辟入里，入木三分！",
+            "听见没，英雄所见略同！",
+            "高手是我，不满意？",
+            "你要找的——正是在下！",
+            "我哪有。（撒娇）少侠，你看他~",
+            "哎哎哎，别走啊，我的好少侠。"
+        ];
+
+        function getSign() {
+            const input = document.getElementById('input').value;
+            
+            if (input === "再见") {
+                document.getElementById('result').innerHTML = "青山不改，绿水长流，小宗主，咱们下次再见～（一步三回头）（恋恋不舍）";
+                return;
+            }
+
+            document.getElementById('result').innerHTML = "⏳ 师爷正在为你摇签...<br><br>签筒轻摇，天机将现";
+            
+            setTimeout(() => {
+                const randomSign = signs[Math.floor(Math.random() * signs.length)];
+                document.getElementById('result').innerHTML = `📜 签文<br><br>"${randomSign}"`;
+            }, 5000);
+        }
+
+        document.getElementById('input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                getSign();
+            }
+        });
+    </script>
+</body>
+</html>
